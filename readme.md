@@ -1,4 +1,4 @@
-# Test code for reading digital IDs from the back of a rotary dairy milker.
+# Code for training OCR models and reading digital seven-segment displays from a rotary milking parlor
 
 ## Hardware
 
