@@ -2,37 +2,31 @@
 
 ## Hardware
 
-I took images with my phone of the milking setup at the distance the luxonis camera would be placed.
-The phone camera and the luxonis camera  are fairly wide angle and the pixels perdigit were small about 15x30. 
-The plastic cover over the digits was also shony and hazy, casing both diffusion and reflections that made it hard to
-read the digits. Errors in ID OCR are a fixaable issue, and one that should not be an additional source of error.
+I took images with my phone of the milking setup at the distance the cameras would be placed.
+The phone camera and the Luxonis camera are fairly wide angle and the pixels per digit were small, about 15x30. 
+The plastic cover over the digits was also shiny and hazy, casing both diffusion and reflections that made it hard to
+read the digits. Errors in ID OCR are a fixable issue, and one that should not be an additional source of error.
 
-## New hardware
+## New Camera and Lens
 
-We will buy an additional camera dedicated to reading IDs.  We need a monochrome computer vision camera with a c/CS zoom lens
-to increase the number of pixels per digit.  We selected an Allied Vision Alvium 1800 U-158m camera 
+We needed a monochrome computer vision camera with a Zoom lens dedicated to reading IDs.  We need a monochrome computer vision camera with a C-mount zoom lens to increase the number of pixels per digit.  We selected an Allied Vision Alvium 1800 U-158m camera 
 with 1,456 x 1,088 pixels, 3.45um pixel size and and a 50mm zoom lens.  This gives an effective 
 imaging area of 246x184mm  at 2.5m. and about 75x150 pixels per digit.
 
-We also selected a bandpass red light filter 633/70nm to cut out glare and make digit recognition easier.
+# New filters
+To maximize contrast even in sunlight we need a color bandpass filters and polarizer. The lens needs M22.5 x 0.50 filters
+
+1. [A bandpass light red filter 633/70nm #89-813, $180](https://www.edmundoptics.com/p/light-red-m225-x-050-machine-vision-filter/32251/)
+2. [A bandpass dark red filter 660/66nm #89-823, $180](https://www.edmundoptics.com/p/dark-red-m225-x-050-machine-vision-filter/32261/)
+2. [A polarizing light filter, #21-545, $75.00](https://www.edmundoptics.com/f/mounted-machine-vision-glass-linear-polarizers/39895/)
+
+Testing indoors and outdoors indicates that both filters are important. The Light red filter tested reduced background
+images. In direct sunlight, a polarizer was essential to read the display. The filters made it possible t read displays that could not be read by eye alone.    
+
 
 ## Software for OCR.
+ 
 
-The recognition tas consists of several steps.  
+There are several popular OCR models available. Tesseract was a popular model for OCR on paper. It is older and does not perform well on images. EasyOCR seems promising. Online tools like Google computer vision API and LLMs can be used but are slower and more expensive and require a lot of bandwidth.
 
-1. identify when the full display is in frame and segment the pixels containing the display. This can be done by training 
-yolo on images of the display on the milking machine
-2. Make any preprocessing adjustments to enhance the contrast of the image. OpenCV can perform a number of steps.  Lesseract 5 does many of these too so opencv may not be needed.
-    a. sharpening 
-    b. [adaptive thresholding](https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html#:~:text=Adaptive%20Thresholding,-In%20the%20previous&text=Here%2C%20the%20algorithm%20determines%20the,for%20images%20with%20varying%20illumination)
-    c. find contours
-3. Use a trained OCR image detection package ot extract the text. [Tesseract](https://tesseract-ocr.github.io) and [pytesseract](https://github.com/madmaze/pytesseract) are  two robust OCR tools. For the most accurate optimization Tesseract can be trained on the font used which in this case is the seven segment display. you can manually  collect images and annotate them with [jTessBoxEditor](https://vietocr.sourceforge.net/training.html). there are also some open source datasets and trained models for seven segment displays like [tesdata_ssd](https://github.com/Shreeshrii/tessdata_ssd) . But... google research says this should not generally be neccicary. See https://github.com/tesseract-ocr/tessdoc/blob/main/ImproveQuality.md
-4. Setting `tesseract_write_images = True`  then you can see the image processing done by tesseract and see if it  make sense or needs to be preprocessed
-4. Finally we need a control script that asynchronously acquires images and runs yolo then tesseract to identify the id then passes the ID to th control program
-
-
-TL/DR: think if we get high-quality images running this command will be good enough: 
-
-```
-pytesseract.image_to_string(Image.open('image.png'))
-```
+Seven segment text is an odd font and the ghosting of off segments can cause problems. We should train a custom OCR model for our camera/ display combination. See `seven_segment_training/README.md` for the details on  data collection and training.
