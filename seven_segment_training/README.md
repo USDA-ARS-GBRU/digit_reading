@@ -24,14 +24,29 @@ We taped the lense to oe end of a lab cart and the Raspberry pi to the other end
 
 ## code to automatically create a training dataset
 
-While Generalized training is hard, we should be able to train a performant model using our camera and a red LED seven segment display. I write tow python scripts to aid in collecting training data/
+While generalized training is hard, we should be able to train a performant model using our camera and a red LED seven segment display. I wrote two python scripts to aid in collecting training data:
 
-1. `rpy_and_digits.py`. This script simply displays random digits of random brightness For focusing and calibration of the camera 
+1. `rpy_and_digits.py`. This script simply displays random digits of random brightness for focusing and calibration of the camera 
 with the [Allied Vision Vimba X Viewer software](https://www.alliedvision.com/en/products/software/vimba-x-sdk/).  The viewer has display issues on Raspberry Pi but works on the Mac laptop.
 
-2. `rpy_digits_and_photos.py`. A python script that  generates random numbers, and random display intensity, displays them on the LCD and captures an image, writing the file as a .jpg and adding a line to the CSV with the filename and label.
+2. `rpy_digits_and_photos.py`. A python script that generates random numbers, and random display intensity, displays them on the LCD and captures images, writing the file as a .jpg and adding a line to the CSV with the filename and label.
+
+```{bash}
+usage: rpy_digits_and_photos.py [-h] [--image_dir IMAGE_DIR] [--csv_file CSV_FILE] [--n_images N_IMAGES]
+
+Capture images of TM1637 display showing random digits
+
+options:
+  -h, --help            show this help message and exit
+  --image_dir IMAGE_DIR
+                        Directory to save captured images
+  --csv_file CSV_FILE   CSV file to log captured images and digits
+  --n_images N_IMAGES   Number of images to capture
+```
 
 Using this setup we collected 2194 images in `training_data/test_img` and a CVS with file names and labels in `training_data/test.csv`.
+
+The `test_img` directory is 261 MB so it is not in this repo but authorized users can access it [here](https://usdagcc-my.sharepoint.com/:f:/r/personal/adam_rivers_usda_gov/Documents/seven_segment_training?csf=1&web=1&e=ZpTF89) 
 
 The next steps are to use this dataset to train a custom model with code from this repository:  https://github.com/clovaai/deep-text-recognition-benchmark and compare it to the baseline english model.
 
