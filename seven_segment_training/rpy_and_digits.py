@@ -9,7 +9,7 @@ import random
 import time
 import os
 
-from raspberrypi_tm1637 import TM1637
+from tm1637 import TM1637
 
 # Configuration
 TM1637_CLK_PIN = 23  # GPIO pin for TM1637 CLK
@@ -22,7 +22,7 @@ def generate_random_digits():
     return f"{random.randint(0, 9999):04d}"
 
 def select_random_brightness():
-    """Select a random brightness level between 1-7."""
+    "s""Select a random brightness level between 1-7."""
     return random.randint(1, 7)
 
 def main():

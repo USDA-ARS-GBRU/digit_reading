@@ -15,7 +15,7 @@ import os
 import csv
 import argparse
 from datetime import datetime
-from raspberrypi_tm1637 import TM1637
+from tm1637 import TM1637
 try:
     import keyboard
     KEYBOARD_AVAILABLE = True
@@ -120,51 +120,46 @@ def main():
         
         # Initialize camera connection once
         print("Connecting to Allied Vision camera...")
-        vmb = vmbpy.VmbSystem.get_instance()
-        vmb.startup()
-        
-        cams = vmb.get_all_cameras()
-        if not cams:
-            print("No cameras found!")
-            return
-        
-        print(f"Found {len(cams)} camera(s)")
-        camera = cams[0]
-        camera.open()
-        
-        # Capture multiple images
-        for i in range(n_images):
-            if check_for_break_key():
-                break
-                
-            print(f"\nCapturing image {i+1} of {n_images}")
+        with vmbpy.VmbSystem.get_instance() as vmb: 
+            cams = vmb.get_all_cameras()
+            if not cams:
+                print("No cameras found!")
+                return
+            print(f"Found {len(cams)} camera(s)")
+            with cams[0] as camera:
+                # Capture multiple images]
+                for i in range(n_images):
+                    if check_for_break_key():
+                        break
+                        
+                    print(f"\nCapturing image {i+1} of {n_images}")
+                    
+                    # Generate random digits and brightness
+                    digits = generate_random_digits()
+                    brightness = select_random_brightness()
+                    
+                    print(f"Displaying digits: {digits} at brightness: {brightness}")
+                    
+                    # Set display
+                    tm.brightness(brightness)
+                    tm.show(digits)
+                    
+                    # Allow display to stabilize
+                    time.sleep(0.8)
+                    
+                    # Capture image
+                    try:
+                        filename = capture_image(camera, digits, brightness, image_dir)
+                        
+                        if filename:
+                            # Log to CSV
+                            log_to_csv(csv_filename, filename, digits)
+                            print(f"Logged to CSV: {filename}, digits: {digits}")
+                    except Exception as e:
+                        print(f"Error capturing image: {e}")
             
-            # Generate random digits and brightness
-            digits = generate_random_digits()
-            brightness = select_random_brightness()
-            
-            print(f"Displaying digits: {digits} at brightness: {brightness}")
-            
-            # Set display
-            tm.brightness(brightness)
-            tm.show(digits)
-            
-            # Allow display to stabilize
-            time.sleep(1)
-            
-            # Capture image
-            try:
-                filename = capture_image(camera, digits, brightness, image_dir)
-                
-                if filename:
-                    # Log to CSV
-                    log_to_csv(csv_filename, filename, digits)
-                    print(f"Logged to CSV: {filename}, digits: {digits}")
-            except Exception as e:
-                print(f"Error capturing image: {e}")
-            
-            # Brief pause between captures
-            time.sleep(0.5)
+                # Brief pause between captures
+                time.sleep(0.2)
             
     except KeyboardInterrupt:
         print("\nProcess interrupted by user (Ctrl+C)")
@@ -178,14 +173,6 @@ def main():
             tm.show("    ")
         except:
             pass
-        
-        try:
-            # Close camera connection
-            camera.close()
-            vmb.shutdown()
-        except:
-            pass
-        
         print("Done.")
 
 if __name__ == "__main__":
