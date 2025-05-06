@@ -13,7 +13,7 @@ We needed a monochrome computer vision camera with a Zoom lens dedicated to read
 with 1,456 x 1,088 pixels, 3.45um pixel size and and a 50mm zoom lens.  This gives an effective 
 imaging area of 246x184mm  at 2.5m. and about 75x150 pixels per digit.
 
-# New filters
+## New filters
 To maximize contrast even in sunlight we need a color bandpass filters and polarizer. The lens needs M22.5 x 0.50 filters
 
 1. [A bandpass light red filter 633/70nm #89-813, $180](https://www.edmundoptics.com/p/light-red-m225-x-050-machine-vision-filter/32251/)
@@ -24,8 +24,7 @@ Testing indoors and outdoors indicates that both filters are important. The Ligh
 images. In direct sunlight, a polarizer was essential to read the display. The filters made it possible t read displays that could not be read by eye alone.    
 
 
-## Software for OCR.
- 
+## Software for OCR
 
 There are several popular OCR models available. Tesseract was a popular model for OCR on paper. It is older and does not perform well on images. EasyOCR seems promising. Online tools like Google computer vision API and LLMs can be used but are slower and more expensive and require a lot of bandwidth.
 
