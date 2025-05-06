@@ -7,7 +7,7 @@ Easy OCR can be [retrained](https://github.com/JaidedAI/EasyOCR/blob/master/cust
 
 ## Image Acquisition setup
 
-The best EasyOCR training should come from training on images from our actual imaging setup. To simulate readign the red displays at the dairy we have purchased a 7 segment LED display that we can control. Using a Raspberry Pi that can control both our camera and the serial display we can gather a large number of images in sunlight and shade that  closely mimic the actual conditions in the dairy.
+The best EasyOCR training should come from training on images from our actual imaging setup. To simulate reading the red displays at the dairy we have purchased a 7 segment LED display that we can control. Using a Raspberry Pi that can control both our camera and the serial display we can gather a large number of images in sunlight and shade that  closely mimic the actual conditions in the dairy.
 
 ### Hardware
 
@@ -19,10 +19,10 @@ The best EasyOCR training should come from training on images from our actual im
 
 Both filters were actually the wrong size but just taped to the lens. Hopefully the real lenses will work better.
 
-We taped the lense to oe end of a lab cart and the Raspberry pi to the other end with the seven segment display attached to it at a distance of about 90cm.  The display height was about 1//3 the height of the dairy dispaly whic will be about 3m away so it was a similar image. We could set this up at the edge of  the garage at CMAVE to acquire images in sunlight and shade. 
+We taped the lens to one end of a lab cart and the Raspberry Pi to the other end with the seven segment display attached to it at a distance of about 90 cm.  The display height was about 1/3 the height of the dairy display which will be about 3 m away so it was a similar image. We set this up at the edge of the garage at CMAVE to acquire images in sunlight and shade. 
 
 
-## code to automatically create a training dataset
+## Code to automatically create a training dataset
 
 While generalized training is hard, we should be able to train a performant model using our camera and a red LED seven segment display. I wrote two python scripts to aid in collecting training data:
 
@@ -44,11 +44,11 @@ options:
   --n_images N_IMAGES   Number of images to capture
 ```
 
-Using this setup we collected 2194 images in `training_data/test_img` and a CVS with file names and labels in `training_data/test.csv`.
+Using this setup we collected 2194 images in `training_data/test_img` and a CSV with file names and labels in `training_data/test.csv`.
 
 The `test_img` directory is 261 MB so it is not in this repo but authorized users can access it [here](https://usdagcc-my.sharepoint.com/:f:/r/personal/adam_rivers_usda_gov/Documents/seven_segment_training?csf=1&web=1&e=ZpTF89) 
 
-The next steps are to use this dataset to train a custom model with code from this repository:  https://github.com/clovaai/deep-text-recognition-benchmark and compare it to the baseline english model.
+The next steps are to use this dataset to train a custom model with code from this repository:  https://github.com/clovaai/deep-text-recognition-benchmark and compare it to the baseline EasyOCR english model.
 
 
 
