@@ -1,0 +1,106 @@
+Starting job on atlas-0247
+SLURM_JOBID: 19000603
+Syncing data to local scratch: /local/scratch/adam.rivers/19000603
+Data sync complete.
+Starting recognition training on 4x L40S
+Namespace(backend='nccl', arch='crnn_mobilenet_v3_large', output_dir='/local/scratch/adam.rivers/19000603/saved_models', train_path='/local/scratch/adam.rivers/19000603/train_data', val_path='/local/scratch/adam.rivers/19000603/val_data', train_datasets=None, val_datasets=None, train_samples=1000, val_samples=20, font='FreeMono.ttf,FreeSans.ttf,FreeSerif.ttf', min_chars=1, max_chars=12, name=None, epochs=30, batch_size=256, input_size=32, device=None, lr=0.0002, weight_decay=0.02, workers=4, resume=None, vocab='digits', test_only=False, freeze_backbone=False, show_samples=False, wb=False, clearml=False, push_to_hub=False, pretrained=False, optim='adamw', sched='cosine', amp=True, find_lr=False, early_stop=True, early_stop_epochs=5, early_stop_delta=0.01)
+Validation set loaded in 0.002615s (1000 samples in 4 batches)
+Namespace(backend='nccl', arch='crnn_mobilenet_v3_large', output_dir='/local/scratch/adam.rivers/19000603/saved_models', train_path='/local/scratch/adam.rivers/19000603/train_data', val_path='/local/scratch/adam.rivers/19000603/val_data', train_datasets=None, val_datasets=None, train_samples=1000, val_samples=20, font='FreeMono.ttf,FreeSans.ttf,FreeSerif.ttf', min_chars=1, max_chars=12, name=None, epochs=30, batch_size=256, input_size=32, device=None, lr=0.0002, weight_decay=0.02, workers=4, resume=None, vocab='digits', test_only=False, freeze_backbone=False, show_samples=False, wb=False, clearml=False, push_to_hub=False, pretrained=False, optim='adamw', sched='cosine', amp=True, find_lr=False, early_stop=True, early_stop_epochs=5, early_stop_delta=0.01)
+Namespace(backend='nccl', arch='crnn_mobilenet_v3_large', output_dir='/local/scratch/adam.rivers/19000603/saved_models', train_path='/local/scratch/adam.rivers/19000603/train_data', val_path='/local/scratch/adam.rivers/19000603/val_data', train_datasets=None, val_datasets=None, train_samples=1000, val_samples=20, font='FreeMono.ttf,FreeSans.ttf,FreeSerif.ttf', min_chars=1, max_chars=12, name=None, epochs=30, batch_size=256, input_size=32, device=None, lr=0.0002, weight_decay=0.02, workers=4, resume=None, vocab='digits', test_only=False, freeze_backbone=False, show_samples=False, wb=False, clearml=False, push_to_hub=False, pretrained=False, optim='adamw', sched='cosine', amp=True, find_lr=False, early_stop=True, early_stop_epochs=5, early_stop_delta=0.01)
+Namespace(backend='nccl', arch='crnn_mobilenet_v3_large', output_dir='/local/scratch/adam.rivers/19000603/saved_models', train_path='/local/scratch/adam.rivers/19000603/train_data', val_path='/local/scratch/adam.rivers/19000603/val_data', train_datasets=None, val_datasets=None, train_samples=1000, val_samples=20, font='FreeMono.ttf,FreeSans.ttf,FreeSerif.ttf', min_chars=1, max_chars=12, name=None, epochs=30, batch_size=256, input_size=32, device=None, lr=0.0002, weight_decay=0.02, workers=4, resume=None, vocab='digits', test_only=False, freeze_backbone=False, show_samples=False, wb=False, clearml=False, push_to_hub=False, pretrained=False, optim='adamw', sched='cosine', amp=True, find_lr=False, early_stop=True, early_stop_epochs=5, early_stop_delta=0.01)
+Train set loaded in 0.5102s (187806 samples in 183 batches)
+Epoch 1/30 - Training loss: 3.88844 | LR: 0.000199452
+Validation loss decreased inf --> 2.65962: saving state...
+Epoch 1/30 - Validation loss: 2.65962 (Exact: 0.00% | Partial: 0.00%)
+Epoch 2/30 - Training loss: 2.54406 | LR: 0.000197815
+Validation loss decreased 2.65962 --> 2.044: saving state...
+Epoch 2/30 - Validation loss: 2.044 (Exact: 0.00% | Partial: 0.00%)
+Epoch 3/30 - Training loss: 0.733674 | LR: 0.000195106
+Validation loss decreased 2.044 --> 0.0452637: saving state...
+Epoch 3/30 - Validation loss: 0.0452637 (Exact: 99.40% | Partial: 99.40%)
+Epoch 4/30 - Training loss: 0.127232 | LR: 0.000191355
+Validation loss decreased 0.0452637 --> 0.0195158: saving state...
+Epoch 4/30 - Validation loss: 0.0195158 (Exact: 99.40% | Partial: 99.40%)
+Epoch 5/30 - Training loss: 0.0864557 | LR: 0.000186603
+Validation loss decreased 0.0195158 --> 0.0110834: saving state...
+Epoch 5/30 - Validation loss: 0.0110834 (Exact: 99.60% | Partial: 99.60%)
+Epoch 6/30 - Training loss: 0.0678964 | LR: 0.000180902
+Validation loss decreased 0.0110834 --> 0.00610397: saving state...
+Epoch 6/30 - Validation loss: 0.00610397 (Exact: 99.90% | Partial: 99.90%)
+Epoch 7/30 - Training loss: 0.0586757 | LR: 0.000174315
+Validation loss decreased 0.00610397 --> 0.00380363: saving state...
+Epoch 7/30 - Validation loss: 0.00380363 (Exact: 100.00% | Partial: 100.00%)
+Epoch 8/30 - Training loss: 0.0485969 | LR: 0.000166913
+Validation loss decreased 0.00380363 --> 0.00288698: saving state...
+Epoch 8/30 - Validation loss: 0.00288698 (Exact: 100.00% | Partial: 100.00%)
+Epoch 9/30 - Training loss: 0.0434497 | LR: 0.000158779
+Validation loss decreased 0.00288698 --> 0.00221306: saving state...
+Epoch 9/30 - Validation loss: 0.00221306 (Exact: 100.00% | Partial: 100.00%)
+Epoch 10/30 - Training loss: 0.0440265 | LR: 0.00015
+Validation loss decreased 0.00221306 --> 0.00197111: saving state...
+Epoch 10/30 - Validation loss: 0.00197111 (Exact: 100.00% | Partial: 100.00%)
+Epoch 11/30 - Training loss: 0.0382499 | LR: 0.000140674
+Validation loss decreased 0.00197111 --> 0.00164188: saving state...
+Epoch 11/30 - Validation loss: 0.00164188 (Exact: 100.00% | Partial: 100.00%)
+Epoch 12/30 - Training loss: 0.0375157 | LR: 0.000130902
+Validation loss decreased 0.00164188 --> 0.00147191: saving state...
+Epoch 12/30 - Validation loss: 0.00147191 (Exact: 100.00% | Partial: 100.00%)
+Epoch 13/30 - Training loss: 0.0328579 | LR: 0.000120791
+Validation loss decreased 0.00147191 --> 0.00124134: saving state...
+Epoch 13/30 - Validation loss: 0.00124134 (Exact: 100.00% | Partial: 100.00%)
+Epoch 14/30 - Training loss: 0.033135 | LR: 0.000110453
+Validation loss decreased 0.00124134 --> 0.00116424: saving state...
+Epoch 14/30 - Validation loss: 0.00116424 (Exact: 100.00% | Partial: 100.00%)
+Epoch 15/30 - Training loss: 0.0338029 | LR: 0.0001
+Validation loss decreased 0.00116424 --> 0.00103684: saving state...
+Epoch 15/30 - Validation loss: 0.00103684 (Exact: 100.00% | Partial: 100.00%)
+Epoch 16/30 - Training loss: 0.0343151 | LR: 8.95476e-05
+Validation loss decreased 0.00103684 --> 0.000950173: saving state...
+Epoch 16/30 - Validation loss: 0.000950173 (Exact: 100.00% | Partial: 100.00%)
+Epoch 17/30 - Training loss: 0.0318867 | LR: 7.92093e-05
+Validation loss decreased 0.000950173 --> 0.000858707: saving state...
+Epoch 17/30 - Validation loss: 0.000858707 (Exact: 100.00% | Partial: 100.00%)
+Epoch 18/30 - Training loss: 0.0314728 | LR: 6.90988e-05
+Validation loss decreased 0.000858707 --> 0.000818603: saving state...
+Epoch 18/30 - Validation loss: 0.000818603 (Exact: 100.00% | Partial: 100.00%)
+Epoch 19/30 - Training loss: 0.0298116 | LR: 5.93269e-05
+Validation loss decreased 0.000818603 --> 0.000764987: saving state...
+Epoch 19/30 - Validation loss: 0.000764987 (Exact: 100.00% | Partial: 100.00%)
+Epoch 20/30 - Training loss: 0.0299298 | LR: 5.00006e-05
+Validation loss decreased 0.000764987 --> 0.000717281: saving state...
+Epoch 20/30 - Validation loss: 0.000717281 (Exact: 100.00% | Partial: 100.00%)
+Epoch 21/30 - Training loss: 0.027781 | LR: 4.12221e-05
+Epoch 21/30 - Validation loss: 0.000737559 (Exact: 100.00% | Partial: 100.00%)
+Epoch 22/30 - Training loss: 0.0287591 | LR: 3.30876e-05
+Validation loss decreased 0.000717281 --> 0.000715558: saving state...
+Epoch 22/30 - Validation loss: 0.000715558 (Exact: 100.00% | Partial: 100.00%)
+Epoch 23/30 - Training loss: 0.0282206 | LR: 2.56862e-05
+Validation loss decreased 0.000715558 --> 0.000689415: saving state...
+Epoch 23/30 - Validation loss: 0.000689415 (Exact: 100.00% | Partial: 100.00%)
+Epoch 24/30 - Training loss: 0.0276604 | LR: 1.9099e-05
+Validation loss decreased 0.000689415 --> 0.000669303: saving state...
+Epoch 24/30 - Validation loss: 0.000669303 (Exact: 100.00% | Partial: 100.00%)
+Epoch 25/30 - Training loss: 0.0285637 | LR: 1.33982e-05
+Validation loss decreased 0.000669303 --> 0.000643839: saving state...
+Epoch 25/30 - Validation loss: 0.000643839 (Exact: 100.00% | Partial: 100.00%)
+Epoch 26/30 - Training loss: 0.0259914 | LR: 8.64622e-06
+Validation loss decreased 0.000643839 --> 0.000640878: saving state...
+Epoch 26/30 - Validation loss: 0.000640878 (Exact: 100.00% | Partial: 100.00%)
+Epoch 27/30 - Training loss: 0.0278219 | LR: 4.89513e-06
+Validation loss decreased 0.000640878 --> 0.000630187: saving state...
+Epoch 27/30 - Validation loss: 0.000630187 (Exact: 100.00% | Partial: 100.00%)
+Epoch 28/30 - Training loss: 0.027871 | LR: 2.18603e-06
+Validation loss decreased 0.000630187 --> 0.000623796: saving state...
+Epoch 28/30 - Validation loss: 0.000623796 (Exact: 100.00% | Partial: 100.00%)
+Epoch 29/30 - Training loss: 0.0281444 | LR: 5.48608e-07
+Epoch 29/30 - Validation loss: 0.000625321 (Exact: 100.00% | Partial: 100.00%)
+Epoch 30/30 - Training loss: 0.0274753 | LR: 8e-10
+Epoch 30/30 - Validation loss: 0.000626352 (Exact: 100.00% | Partial: 100.00%)
+Training complete. Copying models back to permanent storage.
+sending incremental file list
+./
+crnn_mobilenet_v3_large_20260112-153754.pt
+
+sent 18,175,606 bytes  received 38 bytes  12,117,096.00 bytes/sec
+total size is 18,170,993  speedup is 1.00
+Job complete.

@@ -2,16 +2,9 @@
 
 ## Hardware
 
-I took images with my phone of the milking setup at the distance the cameras would be placed.
-The phone camera and the Luxonis camera are fairly wide angle and the pixels per digit were small, about 15x30. 
-The plastic cover over the digits was also shiny and hazy, casing both diffusion and reflections that made it hard to
-read the digits. Errors in ID OCR are a fixable issue, and one that should not be an additional source of error.
+Training data ware collected with a monochrome computer vision camera with a 50mm Zoom lens dedicated to reading IDs. We selected an Allied Vision Alvium 1800 U-158m camera 
+with 1,456 x 1,088 pixels, 3.45um pixel size and and a 50mm zoom lens. The camera in the dairy is an Alvium G1-158m PoE camera with a wider angle lens so it is less sensitive to the exact udder detection time. 
 
-## New Camera and Lens
-
-We needed a monochrome computer vision camera with a Zoom lens dedicated to reading IDs.  We need a monochrome computer vision camera with a C-mount zoom lens to increase the number of pixels per digit.  We selected an Allied Vision Alvium 1800 U-158m camera 
-with 1,456 x 1,088 pixels, 3.45um pixel size and and a 50mm zoom lens.  This gives an effective 
-imaging area of 246x184mm  at 2.5m. and about 75x150 pixels per digit.
 
 ## New filters
 To maximize contrast even in sunlight we need a color bandpass filters and polarizer. The lens needs M22.5 x 0.50 filters
@@ -26,6 +19,36 @@ images. In direct sunlight, a polarizer was essential to read the display. The f
 
 ## Software for OCR
 
-There are several popular OCR models available. Tesseract was a popular model for OCR on paper. It is older and does not perform well on images. EasyOCR seems promising. Online tools like Google computer vision API and LLMs can be used but are slower and more expensive and require a lot of bandwidth.
+We evaluated many OCR tools including Tesseract, EasyOCR, PaddleOCR, Parseq, and DocTR Online tools like Google computer vision API and LLMs can be used and work well, but are slower and more expensive and require a lot of bandwidth. Seven segment text is an odd font and the ghosting of off segments can cause problems.
 
-Seven segment text is an odd font and the ghosting of off segments can cause problems. We should train a custom OCR model for our camera/ display combination. See `seven_segment_training/README.md` for the details on  data collection and training.
+## DocTR
+
+We needed flexibility in detection and recognition models and the ability to custom train models after testing off the shelf models.  DocTR is a modular systems that allows the user to select from many different models
+
+## Text Recognition
+
+For text recognition we evaluated multiple models but have gone forward with `Fast-Base`. The base models performs sell when OCR text is small as at the dairy. When the text is large as in our training date it did not perform as well.
+
+## color inversion
+
+Most OCR models perform better with dark text on light backgrounds, the opposite of what we collect. so we will reverse each image for training and analysis
+
+## Text detection
+
+Text detecton models did not perform well with our data by default. the are also trained on all charageters not just digits whick makes mistakes more likely.  We have retrained `Parseq` and `rcnn-mobilenet-v3-large` on our data.
+
+# Training approach
+
+Our training approach was:
+
+1. Collect 222,000 images
+2. Invert them and use off the shelf DocTR `Fast-base` to  identify the text region and crop them and resize them to 32 px high.
+3. Modify the [custom training script train.py](https://github.com/mindee/doctr/blob/main/references/recognition) to use complicated [Albumentations](https://albumentations.ai/) distortions of the data to prevent memorization.
+4. Train  the `Parseq` and `rcnn-mobilenet-v3-large` models with and without the Albumentations distortions.
+5. Visualize the results of using the Fast-base detection models and the custom detection models on actual photos collected from our camera at the dairy.
+
+
+# Data
+
+- `Captured_images2_inverted` 222,205 jpeg images with an avaerge size of 194kb.
+- `Cropped_images2_inverted` 188,806 jpeg images with a height of 32 px and an average file size of  2kb.
