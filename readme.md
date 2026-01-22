@@ -27,7 +27,7 @@ We needed flexibility in detection and recognition models and the ability to cus
 
 ## Text Recognition
 
-For text recognition we evaluated multiple models but have gone forward with `Fast-Base`. The base models performs sell when OCR text is small as at the dairy. When the text is large as in our training date it did not perform as well.
+For text recognition we evaluated multiple models but have gone forward with `resnet-50`. The base models performs sell when OCR text is small as at the dairy. When the text is large as in our training date it did not perform as well.
 
 ## color inversion
 
@@ -35,20 +35,22 @@ Most OCR models perform better with dark text on light backgrounds, the opposite
 
 ## Text detection
 
-Text detecton models did not perform well with our data by default. the are also trained on all charageters not just digits whick makes mistakes more likely.  We have retrained `Parseq` and `rcnn-mobilenet-v3-large` on our data.
+Text detecton models did not perform well with our data by default. the are also trained on all characters not just digits which makes mistakes more likely.  We have retrained `rcnn-mobilenet-v3-large` on our data.
 
 # Training approach
 
 Our training approach was:
 
-1. Collect 222,000 images
-2. Invert them and use off the shelf DocTR `Fast-base` to  identify the text region and crop them and resize them to 32 px high.
+1. Collect 222,003 images in the directory `captured images2`
+2. Invert the images with the the script `invert_multithread.py` for this and save them to `captured_images2_inverted`
+3. Use off the shelf DocTR `resnet-50` to  identify the text region and crop them and resize them to 32 px high submiting the job to Atlas. 
 3. Modify the [custom training script train.py](https://github.com/mindee/doctr/blob/main/references/recognition) to use complicated [Albumentations](https://albumentations.ai/) distortions of the data to prevent memorization.
-4. Train  the `Parseq` and `rcnn-mobilenet-v3-large` models with and without the Albumentations distortions.
-5. Visualize the results of using the Fast-base detection models and the custom detection models on actual photos collected from our camera at the dairy.
+4. Train  the `rcnn-mobilenet-v3-large` models with Albumentations distortions.
+5. Visualize the results of using the `resnet-50` detection models and the custom recognition model on actual photos collected from our camera at the dairy.
+6. Convert the model to onnx format with 
 
 
 # Data
 
-- `Captured_images2_inverted` 222,205 jpeg images with an avaerge size of 194kb.
-- `Cropped_images2_inverted` 188,806 jpeg images with a height of 32 px and an average file size of  2kb.
+- `Captured_images2_inverted` 222,203 jpeg images with an avaerge size of 194kb.
+- `Cropped_images2_inverted` XXX,XXX jpeg images with a height of 32 px and an average file size of  2kb.
